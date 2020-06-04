@@ -5,18 +5,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginActivity extends AppCompatActivity {
     private int progress = 0;
@@ -24,96 +17,76 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences savedPin;
     private static final String PREF_USER_PIN = "pref_user_pin";
     private static final String PREF_PIN = "pref_pin";
+    private EditText edTxt;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button num1 = findViewById(R.id.btn_1);
-        Button delete = findViewById(R.id.btn_delete);
-        final ProgressBar progressBar = findViewById(R.id.bar_progress);
+        progressBar = findViewById(R.id.bar_progress);
+        edTxt = findViewById(R.id.edTxt_pinCode);
 
-        final EditText edTxt = findViewById(R.id.edTxt_pinCode);
-
-        /*edTxt.addTextChangedListener(new TextWatcher() {
+        edTxt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                progress += 1;
-                progressBar.setProgress(progress);
-                if (progress == 4) {
-                    finish();
+                switch (before) {
+                    case 0:
+                        progress += 1;
+                        break;
+                    case 1:
+                        progress -= 1;
+                        break;
                 }
+                progressBar.setProgress(progress);
+                if (isProgressDone()) {
+                    pin = edTxt.getText().toString();
+                    if (isPinSaved()) {
+                        checkPin();
+                    } else {
+                        savePin();
+                        toLogin();
+                    }
+                }
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
             }
-        });*/
-
-        edTxt.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_1) {
-                    progress += 1;
-                    progressBar.setProgress(progress);
-                    return true;
-                }
-                return false;
-            }
         });
 
-        num1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pin += "1";
-                progress += 1;
-                progressBar.setProgress(progress);
-                if (isProgressDone()) {
-                    return;
-                }
-                if (ifPinSaved()) {
-                    checkPin();
-                }
-                savePin();
-                toLogin();
-            }
-        });
 
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (progress > 0) {
-                    progress -= 1;
-                    progressBar.setProgress(progress);
-                }
-                return;
-            }
-        });
     }
 
     private void toLogin() {
         Intent toLogin = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(toLogin);
+        finish();
     }
 
     private boolean isProgressDone() {
-        return (progress < 4);
+        return (progress == 4);
     }
 
-    private boolean ifPinSaved() {
+    private boolean isPinSaved() {
         return (savedPin != null);
     }
 
     private void checkPin() {
         if (pin.equals(savedPin.getString(PREF_PIN, ""))) {
-
+            toLogin();
+        } else {
+            edTxt.setText("");
+            progress = 0;
+            progressBar.setProgress(progress);
+            Toast.makeText(this, R.string.toast_wrong_pin, Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(this, "Wrong pin", Toast.LENGTH_SHORT).show();
     }
 
     private void savePin() {
