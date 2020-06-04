@@ -58,14 +58,10 @@ public class LoginActivity extends AppCompatActivity {
         edTxt.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == 66) {
+                if (keyCode == KeyEvent.KEYCODE_1) {
                     progress += 1;
                     progressBar.setProgress(progress);
                     return true;
-                }
-                if (keyCode == 4) {
-                    progress -= 1;
-                    progressBar.setProgress(progress);
                 }
                 return false;
             }
