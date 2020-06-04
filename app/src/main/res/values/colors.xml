@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#E5AA17</color>
+    <color name="colorAccent">#E5AA17</color>
+
+    <color name="colorYellowMain">#E5AA17</color>
+    <color name="colorWhite">#60FFFFFF</color>
+    <color name="colorDeadlineToday">#E5AA17</color>
+    <color name="colorDeadlineBreak">#B00020</color>
+    <color name="colorGrayDark">#212121</color>
+    <color name="colorGreen">#4BD0A0</color>
+</resources>
