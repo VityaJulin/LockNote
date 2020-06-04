@@ -6,12 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <com.google.android.material.textfield.TextInputEditText
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="Search"
+        android:background="@color/colorWhiteTr60"/>
+
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_gravity="bottom"
-        app:backgroundTint="@color/colorWhite"
+        app:backgroundTint="@color/colorWhiteTr60"
         app:elevation="8dp"
         app:fabAlignmentMode="end" />
 
