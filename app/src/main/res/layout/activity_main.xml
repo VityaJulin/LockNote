@@ -14,6 +14,8 @@
         android:hint="Search"
         android:background="@color/colorWhiteTr60"/>
 
+    <include layout="@layout/content_main" />
+
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bar"
         android:layout_width="match_parent"

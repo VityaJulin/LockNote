@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/edTxt_pinCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhiteTr60"
         android:hint="@string/hint_enter_pin_code"
-        android:inputType="numberPassword"
+        android:inputType="number"
         android:maxLength="4"
         android:maxLines="1"
         android:padding="16dp"
