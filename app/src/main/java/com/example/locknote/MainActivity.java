@@ -1,5 +1,6 @@
 package com.example.locknote;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,17 +13,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private BottomAppBar bar;
     private NotesDataAdapter adapter;
+    private TextInputEditText search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        search = findViewById(R.id.edTxt_search);
         fab = findViewById(R.id.fab);
         bar = findViewById(R.id.bar);
         setSupportActionBar(bar);
@@ -35,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                generateNote();
+                Intent intent = new Intent(MainActivity.this, EditorActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -55,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_search:
-                Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
+                generateNote();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

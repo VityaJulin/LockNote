@@ -9,6 +9,7 @@
     <com.google.android.material.textfield.TextInputEditText
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
+        android:id="@+id/edTxt_search"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:hint="Search"
