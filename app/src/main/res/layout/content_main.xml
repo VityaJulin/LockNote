@@ -8,5 +8,6 @@
     android:layout_height="wrap_content"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
     tools:context=".MainActivity"
+    android:paddingTop="56dp"
     tools:listitem="@layout/note_list_view"
     tools:showIn="@layout/activity_main" />

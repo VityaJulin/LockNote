@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -63,13 +64,11 @@ public class NotesDataAdapter extends BaseAdapter {
 
         NoteData noteData = notes.get(position);
 
-        //ImageView image = view.findViewById(R.id.icon);
         TextView title = view.findViewById(R.id.title);
         TextView subtitle = view.findViewById(R.id.body);
         TextView deadline = view.findViewById(R.id.deadline);
-        Button delete = view.findViewById(R.id.btn_delete);
+        ImageButton delete = view.findViewById(R.id.btn_delete);
 
-        //image.setImageDrawable(noteData.getImage());
         title.setText(noteData.getNoteTitle());
         subtitle.setText(noteData.getNoteBody());
         deadline.setText(noteData.getNoteDeadline());
