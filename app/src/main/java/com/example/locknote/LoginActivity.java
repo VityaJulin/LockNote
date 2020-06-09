@@ -1,10 +1,12 @@
 package com.example.locknote;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -27,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.bar_progress);
         edTxt = findViewById(R.id.edTxt_pinCode);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
         edTxt.addTextChangedListener(new TextWatcher() {
             @Override

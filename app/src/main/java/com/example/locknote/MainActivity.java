@@ -1,10 +1,12 @@
 package com.example.locknote;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -14,11 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 public class MainActivity extends AppCompatActivity {
-    private FloatingActionButton fab;
-    private BottomAppBar bar;
+    private FloatingActionButton fabAdd;
+    private BottomAppBar barMain;
     private NotesDataAdapter adapter;
     private TextInputEditText search;
 
@@ -28,16 +29,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         search = findViewById(R.id.edTxt_search);
-        fab = findViewById(R.id.fab);
-        bar = findViewById(R.id.bar);
-        setSupportActionBar(bar);
+        fabAdd = findViewById(R.id.fabConfirm);
+        barMain = findViewById(R.id.barEditor);
+        setSupportActionBar(barMain);
 
         ListView listView = findViewById(R.id.listView);
 
         adapter = new NotesDataAdapter(this, null);
         listView.setAdapter(adapter);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, EditorActivity.class);
@@ -51,18 +52,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_language:
-                Toast.makeText(this, "Language", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.menu_password:
-                Toast.makeText(this, "Lock", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.menu_share:
+            case R.id.menu_settings:
                 Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_search:
-                generateNote();
-                return true;
+                search.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -71,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.bottom_navigation_menu, menu);
+        getMenuInflater().inflate(R.menu.bottom_navigation_menu_main, menu);
         return true;
     }
 

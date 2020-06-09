@@ -7,18 +7,19 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
         android:id="@+id/edTxt_search"
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:background="@color/colorWhiteTr60"
         android:hint="Search"
-        android:background="@color/colorWhiteTr60"/>
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
     <include layout="@layout/content_main" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bar"
+        android:id="@+id/barEditor"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_gravity="bottom"
@@ -26,13 +27,12 @@
         app:elevation="8dp"
         app:fabAlignmentMode="end" />
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fabConfirm"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:src="@drawable/ic_baseline_add_24"
         app:elevation="12dp"
-        app:layout_anchor="@id/bar" />
+        app:layout_anchor="@id/barEditor" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

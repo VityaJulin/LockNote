@@ -1,67 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditorActivity">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/text_note_title"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhiteTr60"
-        android:hint="Title"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/text_note_body"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_note_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:hint="Title"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_10"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_note_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:hint="Note"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_30"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_10" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:id="@+id/text_deadline"
+            tools:text="2 may 2020"
+            app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_30"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_horizontal_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_horizontal_30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/barEditor"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhiteTr60"
-        android:hint="Note\n"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_note_title" />
+        android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        app:backgroundTint="@color/colorWhiteTr60"
+        app:elevation="8dp"
+        app:fabAlignmentMode="end" />
 
-    <CheckBox
-        android:id="@+id/chBox_deadline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/guideline_vertical_25"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_note_body" />
-
-    <CalendarView
-        android:id="@+id/calendar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/guideline_vertical_25"
-        app:layout_constraintTop_toBottomOf="@id/text_note_body"
-        app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_50"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_vertical_25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_horizontal_50"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabConfirm"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/ic_baseline_done_24"
+        app:elevation="12dp"
+        app:layout_anchor="@id/barEditor" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
