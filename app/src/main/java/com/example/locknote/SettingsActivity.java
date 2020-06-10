@@ -48,7 +48,7 @@ public class SettingsActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!s.equals("\\d")) {
+                if (s.equals("\\d")) {
                     Toast.makeText(SettingsActivity.this, R.string.toast_numbers_only, Toast.LENGTH_SHORT).show();
                 }
                 switch (before) {
