@@ -4,13 +4,20 @@
     <item
         android:id="@+id/menu_settings"
         android:enabled="true"
-        android:title="settings"
+        android:title="@string/menu_settings"
         android:icon="@drawable/ic_baseline_settings_24"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_search"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_search_24"
-        android:title="Search"
-        app:showAsAction="always" />
+        android:title="@string/menu_search"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_share"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_share_24"
+        android:title="@string/menu_share"
+        app:showAsAction="ifRoom" />
 </menu>

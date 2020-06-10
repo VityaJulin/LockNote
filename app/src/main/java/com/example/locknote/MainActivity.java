@@ -59,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 assert imm != null;
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+            case R.id.menu_share:
+                Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
+                generateNote();
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -76,12 +79,5 @@ public class MainActivity extends AppCompatActivity {
                 "Note №" + adapter.getCount(),
                 "ellipsize - место в котором можно будет поставить ... если заголовок окажется супердлинным. Может быть в начале, в середине и в конце.",
                 ""));
-    }
-
-    private void showNote(int position) {
-        NoteData itemData = adapter.getItem(position);
-        Toast.makeText(MainActivity.this,
-                itemData.getNoteTitle(),
-                Toast.LENGTH_SHORT).show();
     }
 }

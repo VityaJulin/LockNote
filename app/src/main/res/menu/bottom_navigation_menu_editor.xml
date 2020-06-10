@@ -4,13 +4,20 @@
         android:id="@+id/menu_back"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_arrow_back_24"
-        android:title="cancel"
-        app:showAsAction="always" />
+        android:title="@string/menu_cancel"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_alert"
         android:icon="@drawable/ic_baseline_add_alert_24"
         android:enabled="true"
-        android:title="alert"
-        app:showAsAction="always" />
+        android:title="@string/menu_alert"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_delete_alert"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_notifications_off_24"
+        android:title="@string/menu_delete_alert"
+        app:showAsAction="ifRoom" />
 
 </menu>

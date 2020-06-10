@@ -3,4 +3,14 @@
     <string name="toast_wrong_pin">Enter wrong pin</string>
     <string name="hint_enter_pin_code">Enter PIN code</string>
     <string name="toast_note_saved">Note saved</string>
+    <string name="toast_numbers_only">Numbers only</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_hide_pin">Hide pin</string>
+    <string name="menu_show_pin">Show pin</string>
+    <string name="menu_back">Back</string>
+    <string name="menu_cancel">Cancel</string>
+    <string name="menu_alert">alert</string>
+    <string name="menu_delete_alert">Delete alert</string>
 </resources>

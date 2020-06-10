@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,6 +48,9 @@ public class SettingsActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.equals("\\d")) {
+                    Toast.makeText(SettingsActivity.this, R.string.toast_numbers_only, Toast.LENGTH_SHORT).show();
+                }
                 switch (before) {
                     case 0:
                         progress += 1;
@@ -77,7 +81,6 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
-
     private boolean isProgressDone() {
         return (progress == 4);
     }
@@ -91,8 +94,10 @@ public class SettingsActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.menu_show_pin:
+                pin.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                return true;
+            case R.id.menu_hide_pin:
                 pin.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                Toast.makeText(SettingsActivity.this, "Show", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

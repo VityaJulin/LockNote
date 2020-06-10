@@ -65,6 +65,8 @@ public class EditorActivity extends AppCompatActivity {
             case R.id.menu_alert:
                 showCalendar();
                 return true;
+            case R.id.menu_delete_alert:
+                deadline.setText("");
             default:
                 return super.onOptionsItemSelected(item);
 
