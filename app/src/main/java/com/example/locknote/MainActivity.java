@@ -18,8 +18,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class MainActivity extends AppCompatActivity {
-    private FloatingActionButton fabAdd;
-    private BottomAppBar barMain;
     private NotesDataAdapter adapter;
     private TextInputEditText search;
 
@@ -29,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         search = findViewById(R.id.edTxt_search);
-        fabAdd = findViewById(R.id.fabConfirm);
-        barMain = findViewById(R.id.barEditor);
+        FloatingActionButton fabAdd = findViewById(R.id.fabConfirm);
+        BottomAppBar barMain = findViewById(R.id.barEditor);
         setSupportActionBar(barMain);
 
         ListView listView = findViewById(R.id.listView);
@@ -53,11 +51,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_settings:
-                Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.menu_search:
                 search.requestFocus();
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                assert imm != null;
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             default:
                 return super.onOptionsItemSelected(item);

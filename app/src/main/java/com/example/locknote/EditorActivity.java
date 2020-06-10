@@ -1,8 +1,5 @@
 package com.example.locknote;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,25 +7,25 @@ import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
 
 public class EditorActivity extends AppCompatActivity {
-    private TextInputEditText title;
-    private TextInputEditText body;
-    private BottomAppBar barEditor;
-    private FloatingActionButton fabConfirm;
     private DatePickerDialog datePickerDialog;
     private TextView deadline;
+    private final Calendar todayCalendar = Calendar.getInstance();
 
 
     @Override
@@ -37,17 +34,24 @@ public class EditorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editor);
 
         deadline = findViewById(R.id.text_deadline);
-        title = findViewById(R.id.text_note_title);
-        body = findViewById(R.id.text_note_body);
+        TextInputEditText title = findViewById(R.id.text_note_title);
+        TextInputEditText body = findViewById(R.id.text_note_body);
         body.requestFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        assert imm != null;
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
-        barEditor = findViewById(R.id.barEditor);
-        fabConfirm = findViewById(R.id.fabConfirm);
+        BottomAppBar barEditor = findViewById(R.id.barEditor);
+        FloatingActionButton fabConfirm = findViewById(R.id.fabConfirm);
         setSupportActionBar(barEditor);
 
-
+        fabConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(EditorActivity.this, R.string.toast_note_saved, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -74,15 +78,16 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     public void showCalendar() {
-        final Calendar todayCalendar = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener onDateSet = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                deadline.setText("42");
+                todayCalendar.set(Calendar.YEAR, year);
+                todayCalendar.set(Calendar.MONTH, month);
+                todayCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                setInitialDateTime();
                 datePickerDialog.dismiss();
             }
         };
-
         datePickerDialog = new DatePickerDialog(
                 this,
                 onDateSet,
@@ -91,6 +96,11 @@ public class EditorActivity extends AppCompatActivity {
                 todayCalendar.get(Calendar.DAY_OF_MONTH)
         );
         datePickerDialog.show();
+    }
 
+    private void setInitialDateTime() {
+        deadline.setText(DateUtils.formatDateTime(this,
+                todayCalendar.getTimeInMillis(),
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
     }
 }

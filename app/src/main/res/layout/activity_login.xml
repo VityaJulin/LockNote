@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorWhiteTr60"
         android:hint="@string/hint_enter_pin_code"
-        android:inputType="number"
+        android:inputType="numberPassword"
         android:maxLength="4"
         android:maxLines="1"
         android:padding="16dp"

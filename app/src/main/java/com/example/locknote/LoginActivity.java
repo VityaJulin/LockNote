@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.bar_progress);
         edTxt = findViewById(R.id.edTxt_pinCode);
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        assert imm != null;
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
         edTxt.addTextChangedListener(new TextWatcher() {

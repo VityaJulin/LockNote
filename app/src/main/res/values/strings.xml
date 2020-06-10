@@ -2,4 +2,5 @@
     <string name="app_name">LockNote</string>
     <string name="toast_wrong_pin">Enter wrong pin</string>
     <string name="hint_enter_pin_code">Enter PIN code</string>
+    <string name="toast_note_saved">Note saved</string>
 </resources>
