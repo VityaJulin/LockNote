@@ -13,4 +13,6 @@
     <string name="menu_cancel">Cancel</string>
     <string name="menu_alert">alert</string>
     <string name="menu_delete_alert">Delete alert</string>
+    <string name="hint_title">Title</string>
+    <string name="hint_note">Note</string>
 </resources>

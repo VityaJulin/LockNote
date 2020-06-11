@@ -50,6 +50,7 @@ public class EditorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(EditorActivity.this, R.string.toast_note_saved, Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }
