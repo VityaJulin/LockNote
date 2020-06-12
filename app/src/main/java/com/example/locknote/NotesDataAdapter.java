@@ -5,19 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NotesDataAdapter extends BaseAdapter {
-    private List<NoteData> notes;
+    private List<Note> notes;
     private LayoutInflater inflater;
 
-    NotesDataAdapter(Context context, List<NoteData> notes) {
+    NotesDataAdapter(Context context, List<Note> notes) {
         if (notes == null) {
             this.notes = new ArrayList<>();
         } else {
@@ -26,7 +24,7 @@ public class NotesDataAdapter extends BaseAdapter {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    void addNote(NoteData note) {
+    void addNote(Note note) {
         this.notes.add(note);
         notifyDataSetChanged();
     }
@@ -42,7 +40,7 @@ public class NotesDataAdapter extends BaseAdapter {
     }
 
     @Override
-    public NoteData getItem(int position) {
+    public Note getItem(int position) {
         if (position < notes.size()) {
             return notes.get(position);
         } else {
@@ -62,7 +60,7 @@ public class NotesDataAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.note_list_view, parent, false);
         }
 
-        NoteData noteData = notes.get(position);
+        Note noteData = notes.get(position);
 
         TextView title = view.findViewById(R.id.title);
         TextView subtitle = view.findViewById(R.id.body);

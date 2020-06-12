@@ -2,7 +2,6 @@ package com.example.locknote;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.Menu;
@@ -15,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,9 +46,12 @@ public class EditorActivity extends AppCompatActivity {
         FloatingActionButton fabConfirm = findViewById(R.id.fabConfirm);
         setSupportActionBar(barEditor);
 
+        NotesDataBase notesDataBase = Room.databaseBuilder(getApplicationContext(), NotesDataBase.class, "db_notes").build();
+
         fabConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                addNote();
                 Toast.makeText(EditorActivity.this, R.string.toast_note_saved, Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -103,5 +106,9 @@ public class EditorActivity extends AppCompatActivity {
         deadline.setText(DateUtils.formatDateTime(this,
                 todayCalendar.getTimeInMillis(),
                 DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
+    }
+
+    private void addNote() {
+
     }
 }
