@@ -74,8 +74,9 @@ public class SettingsActivity extends AppCompatActivity {
                 if (isProgressDone()) {
                     savedPin = pin.getText().toString();
                     Toast.makeText(SettingsActivity.this, savedPin, Toast.LENGTH_SHORT).show();
+                    finish();
                 } else {
-                    Toast.makeText(SettingsActivity.this, "4", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SettingsActivity.this, R.string.toast_enter4num, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -89,15 +90,15 @@ public class SettingsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_back:
-                Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
-                startActivity(intent);
                 finish();
                 return true;
             case R.id.menu_show_pin:
                 pin.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                pin.setSelection(pin.getText().length());
                 return true;
             case R.id.menu_hide_pin:
                 pin.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                pin.setSelection(pin.getText().length());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

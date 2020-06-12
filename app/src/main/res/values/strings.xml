@@ -15,4 +15,5 @@
     <string name="menu_delete_alert">Delete alert</string>
     <string name="hint_title">Title</string>
     <string name="hint_note">Note</string>
+    <string name="toast_enter4num">Enter four numbers</string>
 </resources>

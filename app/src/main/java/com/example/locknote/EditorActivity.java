@@ -59,8 +59,6 @@ public class EditorActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_back:
-                Intent intent = new Intent(EditorActivity.this, MainActivity.class);
-                startActivity(intent);
                 finish();
                 return true;
             case R.id.menu_alert:
