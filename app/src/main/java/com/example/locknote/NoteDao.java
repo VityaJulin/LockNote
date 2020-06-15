@@ -10,10 +10,10 @@ import java.util.List;
 @Dao
 public interface NoteDao {
     @Insert
-    void insertAll(Note note);
+    void insertNote(Note note);
 
     @Delete
-    void delete(Note note);
+    void deleteNote(Note note);
 
     @Query("SELECT * FROM note")
     List<Note> getAllNote();

@@ -1,12 +1,13 @@
 package com.example.locknote;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class Note {
-    @PrimaryKey(autoGenerate = true)
-    private Long id;
+    @PrimaryKey
+    @NonNull
     private String noteTitle;
     private String noteBody;
     private String noteDeadline;
@@ -17,9 +18,6 @@ public class Note {
         this.noteDeadline = noteDeadline;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public void setNoteTitle(String noteTitle) {
         this.noteTitle = noteTitle;
@@ -33,9 +31,6 @@ public class Note {
         this.noteDeadline = noteDeadline;
     }
 
-    public Long getId() {
-        return id;
-    }
 
     public String getNoteTitle() {
         return noteTitle;

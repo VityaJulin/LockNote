@@ -75,9 +75,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void generateNote() {
+
         adapter.addNote(new Note(
                 "Note №" + adapter.getCount(),
                 "ellipsize - место в котором можно будет поставить ... если заголовок окажется супердлинным. Может быть в начале, в середине и в конце.",
                 ""));
     }
+
+
 }

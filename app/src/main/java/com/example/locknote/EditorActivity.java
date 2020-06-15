@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Database;
 import androidx.room.Room;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -23,10 +24,15 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.Calendar;
 
 public class EditorActivity extends AppCompatActivity {
+    private final Calendar todayCalendar = Calendar.getInstance();
     private DatePickerDialog datePickerDialog;
     private TextView deadline;
-    private final Calendar todayCalendar = Calendar.getInstance();
-
+    private TextInputEditText title;
+    private TextInputEditText body;
+    private String noteTitle = "";
+    private String noteBody = "";
+    private String noteDeadline = "";
+    NotesDataBase notesDataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +40,8 @@ public class EditorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editor);
 
         deadline = findViewById(R.id.text_deadline);
-        TextInputEditText title = findViewById(R.id.text_note_title);
-        TextInputEditText body = findViewById(R.id.text_note_body);
+        title = findViewById(R.id.text_note_title);
+        body = findViewById(R.id.text_note_body);
         body.requestFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
@@ -46,7 +52,10 @@ public class EditorActivity extends AppCompatActivity {
         FloatingActionButton fabConfirm = findViewById(R.id.fabConfirm);
         setSupportActionBar(barEditor);
 
-        NotesDataBase notesDataBase = Room.databaseBuilder(getApplicationContext(), NotesDataBase.class, "db_notes").build();
+        notesDataBase = Room.databaseBuilder(getApplicationContext(), NotesDataBase.class, "db_notes").build();
+        noteTitle = title.getText().toString();
+        noteBody = body.getText().toString();
+        noteDeadline = deadline.getText().toString();
 
         fabConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +118,10 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     private void addNote() {
-
+        if (body.equals("")) {
+            //todo
+        }
+        Note note = new Note(noteTitle, noteBody, noteDeadline);
+        notesDataBase.getNoteDao().insertNote(note);
     }
 }
