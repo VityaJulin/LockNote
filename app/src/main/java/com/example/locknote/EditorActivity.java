@@ -14,8 +14,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Database;
-import androidx.room.Room;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,7 +30,7 @@ public class EditorActivity extends AppCompatActivity {
     private String noteTitle = "";
     private String noteBody = "";
     private String noteDeadline = "";
-    NotesDataBase notesDataBase;
+    StorageModule storageModule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +50,6 @@ public class EditorActivity extends AppCompatActivity {
         FloatingActionButton fabConfirm = findViewById(R.id.fabConfirm);
         setSupportActionBar(barEditor);
 
-        notesDataBase = Room.databaseBuilder(getApplicationContext(), NotesDataBase.class, "db_notes").build();
         noteTitle = title.getText().toString();
         noteBody = body.getText().toString();
         noteDeadline = deadline.getText().toString();
@@ -122,6 +119,6 @@ public class EditorActivity extends AppCompatActivity {
             //todo
         }
         Note note = new Note(noteTitle, noteBody, noteDeadline);
-        notesDataBase.getNoteDao().insertNote(note);
+        storageModule.getStorage().getNoteDao().insertNote(note);
     }
 }

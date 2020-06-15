@@ -17,14 +17,20 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+    private List<Note> notes;
     private NotesDataAdapter adapter;
     private TextInputEditText search;
+    StorageModule storageModule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        notes = storageModule.getStorage().getNoteDao().getAllNote();
+        generateNotes();
 
         search = findViewById(R.id.edTxt_search);
         FloatingActionButton fabAdd = findViewById(R.id.fabConfirm);
@@ -61,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             case R.id.menu_share:
                 Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
-                generateNote();
+                //generateNote();
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -74,13 +80,9 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void generateNote() {
-
-        adapter.addNote(new Note(
-                "Note №" + adapter.getCount(),
-                "ellipsize - место в котором можно будет поставить ... если заголовок окажется супердлинным. Может быть в начале, в середине и в конце.",
-                ""));
+    private void generateNotes() {
+        for (Note note : notes) {
+            adapter.addNote(note);
+        }
     }
-
-
 }
