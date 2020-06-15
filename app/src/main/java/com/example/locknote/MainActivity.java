@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        notes = storageModule.getStorage().getNoteDao().getAllNote();
+        StorageComponent component = App.getComponent();
+        notes = component.getStorage().getNoteDao().getAllNote();
         generateNotes();
 
         search = findViewById(R.id.edTxt_search);

@@ -8,10 +8,11 @@ import dagger.Provides;
 
 @Module
 public class StorageModule extends AppCompatActivity {
+    NotesDataBase notesDataBase;
 
     @Provides
     NotesDataBase getStorage() {
-    NotesDataBase notesDataBase = Room.databaseBuilder(getApplicationContext(), NotesDataBase.class, "db_notes").build();
+        notesDataBase = Room.databaseBuilder(getApplicationContext(), NotesDataBase.class, "db_notes").build();
         return notesDataBase;
     }
 
