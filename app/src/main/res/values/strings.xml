@@ -16,4 +16,5 @@
     <string name="hint_title">Title</string>
     <string name="hint_note">Note</string>
     <string name="toast_enter4num">Enter four numbers</string>
+    <string name="toast_add_your_note">Add your note</string>
 </resources>

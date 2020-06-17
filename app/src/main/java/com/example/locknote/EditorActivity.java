@@ -30,12 +30,14 @@ public class EditorActivity extends AppCompatActivity {
     private String noteTitle = "";
     private String noteBody = "";
     private String noteDeadline = "";
-    StorageModule storageModule;
+    StorageComponent component;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
+
+        component = App.getComponent();
 
         deadline = findViewById(R.id.text_deadline);
         title = findViewById(R.id.text_note_title);
@@ -116,9 +118,16 @@ public class EditorActivity extends AppCompatActivity {
 
     private void addNote() {
         if (body.equals("")) {
-            //todo
+            Toast.makeText(this, R.string.toast_add_your_note, Toast.LENGTH_SHORT).show();
+            return;
         }
-        Note note = new Note(noteTitle, noteBody, noteDeadline);
-        storageModule.getStorage().getNoteDao().insertNote(note);
+
+        Executor.IOThread(new Runnable() {
+            @Override
+            public void run() {
+                Note note = new Note(noteTitle, noteBody, noteDeadline);
+                component.getStorage().getNoteDao().insertNote(note);
+            }
+        });
     }
 }

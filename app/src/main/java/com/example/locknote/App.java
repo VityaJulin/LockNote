@@ -9,11 +9,14 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        component = DaggerStorageComponent.create();
+        component = DaggerStorageComponent
+                .builder()
+                .storageModule(new StorageModule(this))
+                .build();
     }
+
 
     public static StorageComponent getComponent() {
         return component;
     }
-
 }

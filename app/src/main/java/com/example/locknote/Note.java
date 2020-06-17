@@ -6,8 +6,17 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Note {
-    @PrimaryKey
+    public int getNoteId() {
+        return noteId;
+    }
+
+    public void setNoteId(int noteId) {
+        this.noteId = noteId;
+    }
+
+    @PrimaryKey(autoGenerate = true)
     @NonNull
+    private int noteId;
     private String noteTitle;
     private String noteBody;
     private String noteDeadline;

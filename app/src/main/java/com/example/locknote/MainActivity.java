@@ -23,15 +23,22 @@ public class MainActivity extends AppCompatActivity {
     private List<Note> notes;
     private NotesDataAdapter adapter;
     private TextInputEditText search;
-    StorageModule storageModule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        StorageComponent component = App.getComponent();
-        notes = component.getStorage().getNoteDao().getAllNote();
-        generateNotes();
+
+        final StorageComponent component = App.getComponent();
+
+        Executor.IOThread(new Runnable() {
+            @Override
+            public void run() {
+                notes = component.getStorage().getNoteDao().getAllNote();
+                generateNotes();
+            }
+        });
+
 
         search = findViewById(R.id.edTxt_search);
         FloatingActionButton fabAdd = findViewById(R.id.fabConfirm);
@@ -50,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 
     @Override
@@ -68,10 +73,8 @@ public class MainActivity extends AppCompatActivity {
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             case R.id.menu_share:
                 Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
-                //generateNote();
             default:
                 return super.onOptionsItemSelected(item);
-
         }
     }
 
