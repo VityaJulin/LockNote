@@ -32,8 +32,6 @@ public class NotesDataAdapter extends BaseAdapter {
     }
 
     void removeNote(final int position) {
-        notes.remove(position);
-        notifyDataSetChanged();
 
         Executor.IOThread(new Runnable() {
             @Override
@@ -41,8 +39,10 @@ public class NotesDataAdapter extends BaseAdapter {
                 notes = component.getStorage().getNoteDao().getAllNote();
                 Note note = notes.get(position);
                 component.getStorage().getNoteDao().deleteNote(note);
+        notes.remove(position);
             }
         });
+        notifyDataSetChanged();
     }
 
     @Override

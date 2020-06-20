@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private int progress = 0;
-    private String pin = "";
+    private String pin;
     private SharedPreferences savedPin;
     private static final String PREF_USER_PIN = "pref_user_pin";
     private static final String PREF_PIN = "pref_pin";
@@ -26,9 +26,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        savedPin = getSharedPreferences(PREF_USER_PIN, MODE_PRIVATE);
         progressBar = findViewById(R.id.bar_progress);
         edTxt = findViewById(R.id.edTxt_pinCode);
+
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         assert imm != null;
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
@@ -80,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isPinSaved() {
-        return (savedPin != null);
+        return (savedPin.contains(PREF_PIN));
     }
 
     private void checkPin() {
@@ -95,7 +96,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void savePin() {
-        savedPin = getSharedPreferences(PREF_USER_PIN, MODE_PRIVATE);
         savedPin.edit()
                 .putString(PREF_PIN, pin)
                 .apply();
