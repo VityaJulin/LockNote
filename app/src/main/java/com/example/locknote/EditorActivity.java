@@ -27,9 +27,9 @@ public class EditorActivity extends AppCompatActivity {
     private TextView deadline;
     private TextInputEditText title;
     private TextInputEditText body;
-    private String noteTitle = "";
-    private String noteBody = "";
-    private String noteDeadline = "";
+    private String noteTitle;
+    private String noteBody;
+    private String noteDeadline;
     StorageComponent component;
 
     @Override
@@ -52,16 +52,17 @@ public class EditorActivity extends AppCompatActivity {
         FloatingActionButton fabConfirm = findViewById(R.id.fabConfirm);
         setSupportActionBar(barEditor);
 
-        noteTitle = title.getText().toString();
-        noteBody = body.getText().toString();
-        noteDeadline = deadline.getText().toString();
 
         fabConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addNote();
-                Toast.makeText(EditorActivity.this, R.string.toast_note_saved, Toast.LENGTH_SHORT).show();
-                finish();
+                if (body.getText().toString().equals("")) {
+                    Toast.makeText(EditorActivity.this, R.string.toast_add_your_note, Toast.LENGTH_SHORT).show();
+                } else {
+                    addNote();
+                    Toast.makeText(EditorActivity.this, R.string.toast_note_saved, Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
         });
     }
@@ -117,14 +118,13 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     private void addNote() {
-        if (body.equals("")) {
-            Toast.makeText(this, R.string.toast_add_your_note, Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         Executor.IOThread(new Runnable() {
             @Override
             public void run() {
+                noteTitle = title.getText().toString();
+                noteBody = body.getText().toString();
+                noteDeadline = deadline.getText().toString();
                 Note note = new Note(noteTitle, noteBody, noteDeadline);
                 component.getStorage().getNoteDao().insertNote(note);
             }

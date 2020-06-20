@@ -5,6 +5,7 @@ import android.app.Application;
 public class App extends Application {
 
     private static StorageComponent component;
+    private static Keystore keystore;
 
     @Override
     public void onCreate() {
@@ -18,5 +19,9 @@ public class App extends Application {
 
     public static StorageComponent getComponent() {
         return component;
+    }
+
+    public static Keystore getKeystore() {
+        return keystore;
     }
 }

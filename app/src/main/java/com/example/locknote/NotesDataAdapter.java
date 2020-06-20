@@ -14,6 +14,7 @@ import java.util.List;
 public class NotesDataAdapter extends BaseAdapter {
     private List<Note> notes;
     private LayoutInflater inflater;
+    StorageComponent component;
 
     NotesDataAdapter(Context context, List<Note> notes) {
         if (notes == null) {
@@ -22,6 +23,7 @@ public class NotesDataAdapter extends BaseAdapter {
             this.notes = notes;
         }
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        component = App.getComponent();
     }
 
     void addNote(Note note) {
@@ -29,9 +31,11 @@ public class NotesDataAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    void removeNote(int position) {
+    void removeNote(final int position) {
         notes.remove(position);
         notifyDataSetChanged();
+
+
     }
 
     @Override
@@ -66,6 +70,17 @@ public class NotesDataAdapter extends BaseAdapter {
         TextView subtitle = view.findViewById(R.id.body);
         TextView deadline = view.findViewById(R.id.deadline);
         ImageButton delete = view.findViewById(R.id.btn_delete);
+
+        if (!noteData.getNoteTitle().equals("")) {
+            title.setVisibility(View.VISIBLE);
+        } else {
+            title.setVisibility(View.GONE);
+        }
+        if (!noteData.getNoteDeadline().equals("")) {
+            deadline.setVisibility(View.VISIBLE);
+        } else {
+            deadline.setVisibility(View.GONE);
+        }
 
         title.setText(noteData.getNoteTitle());
         subtitle.setText(noteData.getNoteBody());
