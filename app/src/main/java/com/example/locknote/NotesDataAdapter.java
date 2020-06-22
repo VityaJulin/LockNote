@@ -13,6 +13,7 @@ import java.util.List;
 
 public class NotesDataAdapter extends BaseAdapter {
     private List<Note> notes;
+    private List<Note> notesDb;
     private LayoutInflater inflater;
     StorageComponent component;
 
@@ -36,12 +37,13 @@ public class NotesDataAdapter extends BaseAdapter {
         Executor.IOThread(new Runnable() {
             @Override
             public void run() {
-                notes = component.getStorage().getNoteDao().getAllNote();
-                Note note = notes.get(position);
+                notesDb = component.getStorage().getNoteDao().getAllNote();
+                Note note = notesDb.get(position);
+                int id = note.getNoteId();
                 component.getStorage().getNoteDao().deleteNote(note);
-        notes.remove(position);
             }
         });
+        notes.remove(position);
         notifyDataSetChanged();
     }
 
