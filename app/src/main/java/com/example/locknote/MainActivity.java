@@ -31,13 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         final StorageComponent component = App.getComponent();
 
-        Executor.IOThread(new Runnable() {
-            @Override
-            public void run() {
-                notes = component.getStorage().getNoteDao().getAllNote();
-                generateNotes();
-            }
-        });
+        generateNotes(component);
 
 
         search = findViewById(R.id.edTxt_search);
@@ -55,6 +49,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, EditorActivity.class);
                 startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    private void generateNotes(final StorageComponent component) {
+        Executor.IOThread(new Runnable() {
+            @Override
+            public void run() {
+                notes = component.getStorage().getNoteDao().getAllNote();
+                for (Note note : notes) {
+                    adapter.addNote(note);
+                }
             }
         });
     }
@@ -84,9 +91,9 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void generateNotes() {
-        for (Note note : notes) {
-            adapter.addNote(note);
-        }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.notifyDataSetChanged();
     }
 }
