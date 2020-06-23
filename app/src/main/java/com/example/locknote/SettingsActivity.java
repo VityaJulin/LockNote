@@ -1,7 +1,6 @@
 package com.example.locknote;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,10 +20,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import static com.example.locknote.LoginActivity.savedPin;
+
 public class SettingsActivity extends AppCompatActivity {
     private EditText pin;
     private int progress = 0;
-    private String savedPin = "";
+    private static final String PREF_PIN = "pref_pin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +73,12 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isProgressDone()) {
-                    savedPin = pin.getText().toString();
-                    Toast.makeText(SettingsActivity.this, savedPin, Toast.LENGTH_SHORT).show();
+                    String newPin = pin.getText().toString();
+
+                    savedPin.edit()
+                            .putString(PREF_PIN, newPin)
+                            .apply();
+                    Toast.makeText(SettingsActivity.this, newPin, Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
                     Toast.makeText(SettingsActivity.this, R.string.toast_enter4num, Toast.LENGTH_SHORT).show();
