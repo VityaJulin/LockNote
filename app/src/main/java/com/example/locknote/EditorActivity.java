@@ -58,6 +58,7 @@ public class EditorActivity extends AppCompatActivity {
         if (!isNewNote()) {
             title.setText(intent.getStringExtra("newTitle"));
             body.setText(intent.getStringExtra("newBody"));
+            deadline.setText(intent.getStringExtra("newDeadline"));
         }
 
         fabConfirm.setOnClickListener(new View.OnClickListener() {
@@ -133,19 +134,14 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     private void addNote() {
-
         Executor.IOThread(new Runnable() {
             @Override
             public void run() {
-                if (isNewNote()) {
-                    noteTitle = title.getText().toString();
-                    noteBody = body.getText().toString();
-                    noteDeadline = deadline.getText().toString();
-                    Note note = new Note(noteTitle, noteBody, noteDeadline);
-                    component.getStorage().getNoteDao().insertNote(note);
-                } else {
-                    return;
-                }
+                noteTitle = title.getText().toString();
+                noteBody = body.getText().toString();
+                noteDeadline = deadline.getText().toString();
+                Note note = new Note(noteTitle, noteBody, noteDeadline);
+                component.getStorage().getNoteDao().insertNote(note);
             }
         });
     }

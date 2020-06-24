@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new NotesDataAdapter(this, null);
         listView.setAdapter(adapter);
 
-        Toast.makeText(this, R.string.toast_edit_note_click, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.toast_edit_note_click, Toast.LENGTH_SHORT).show();
 
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,8 +63,10 @@ public class MainActivity extends AppCompatActivity {
                 Note note = notes.get(position);
                 String newTitle = note.getNoteTitle();
                 String newBody = note.getNoteBody();
+                String newDeadline = note.getNoteDeadline();
                 intent.putExtra("newTitle", newTitle);
                 intent.putExtra("newBody", newBody);
+                intent.putExtra("newDeadLine", newDeadline);
 
                 startActivity(intent);
                 finish();
