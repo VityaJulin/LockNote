@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -33,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
         generateNotes(component);
 
-
         search = findViewById(R.id.edTxt_search);
         FloatingActionButton fabAdd = findViewById(R.id.fabConfirm);
         BottomAppBar barMain = findViewById(R.id.barEditor);
@@ -44,12 +44,31 @@ public class MainActivity extends AppCompatActivity {
         adapter = new NotesDataAdapter(this, null);
         listView.setAdapter(adapter);
 
+        Toast.makeText(this, R.string.toast_edit_note_click, Toast.LENGTH_LONG).show();
+
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, EditorActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, EditorActivity.class);
+
+                Note note = notes.get(position);
+                String newTitle = note.getNoteTitle();
+                String newBody = note.getNoteBody();
+                intent.putExtra("newTitle", newTitle);
+                intent.putExtra("newBody", newBody);
+
+                startActivity(intent);
+                finish();
+                return true;
             }
         });
     }
@@ -89,11 +108,5 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.bottom_navigation_menu_main, menu);
         return true;
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        adapter.notifyDataSetChanged();
     }
 }

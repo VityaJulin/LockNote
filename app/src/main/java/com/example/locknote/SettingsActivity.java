@@ -74,7 +74,6 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (isProgressDone()) {
                     String newPin = pin.getText().toString();
-
                     savedPin.edit()
                             .putString(PREF_PIN, newPin)
                             .apply();

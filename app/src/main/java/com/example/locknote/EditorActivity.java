@@ -32,6 +32,7 @@ public class EditorActivity extends AppCompatActivity {
     private String noteBody;
     private String noteDeadline;
     StorageComponent component;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class EditorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editor);
 
         component = App.getComponent();
+        intent = getIntent();
 
         deadline = findViewById(R.id.text_deadline);
         title = findViewById(R.id.text_note_title);
@@ -53,6 +55,10 @@ public class EditorActivity extends AppCompatActivity {
         FloatingActionButton fabConfirm = findViewById(R.id.fabConfirm);
         setSupportActionBar(barEditor);
 
+        if (!isNewNote()) {
+            title.setText(intent.getStringExtra("newTitle"));
+            body.setText(intent.getStringExtra("newBody"));
+        }
 
         fabConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +68,7 @@ public class EditorActivity extends AppCompatActivity {
                 } else {
                     addNote();
                     Toast.makeText(EditorActivity.this, R.string.toast_note_saved, Toast.LENGTH_SHORT).show();
-                    Intent intent  = new Intent(EditorActivity.this, MainActivity.class);
+                    Intent intent = new Intent(EditorActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -70,11 +76,15 @@ public class EditorActivity extends AppCompatActivity {
         });
     }
 
+    private boolean isNewNote() {
+        return intent == null;
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_back:
-                Intent intent  = new Intent(EditorActivity.this, MainActivity.class);
+                Intent intent = new Intent(EditorActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
@@ -127,11 +137,15 @@ public class EditorActivity extends AppCompatActivity {
         Executor.IOThread(new Runnable() {
             @Override
             public void run() {
-                noteTitle = title.getText().toString();
-                noteBody = body.getText().toString();
-                noteDeadline = deadline.getText().toString();
-                Note note = new Note(noteTitle, noteBody, noteDeadline);
-                component.getStorage().getNoteDao().insertNote(note);
+                if (isNewNote()) {
+                    noteTitle = title.getText().toString();
+                    noteBody = body.getText().toString();
+                    noteDeadline = deadline.getText().toString();
+                    Note note = new Note(noteTitle, noteBody, noteDeadline);
+                    component.getStorage().getNoteDao().insertNote(note);
+                } else {
+                    return;
+                }
             }
         });
     }

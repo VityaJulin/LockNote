@@ -39,7 +39,6 @@ public class NotesDataAdapter extends BaseAdapter {
             public void run() {
                 notesDb = component.getStorage().getNoteDao().getAllNote();
                 Note note = notesDb.get(position);
-                int id = note.getNoteId();
                 component.getStorage().getNoteDao().deleteNote(note);
             }
         });
