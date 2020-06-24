@@ -21,6 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class EditorActivity extends AppCompatActivity {
     private final Calendar todayCalendar = Calendar.getInstance();
@@ -31,8 +32,10 @@ public class EditorActivity extends AppCompatActivity {
     private String noteTitle;
     private String noteBody;
     private String noteDeadline;
-    StorageComponent component;
     private Intent intent;
+    private int noteIndex;
+    private List<Note> notesDb;
+    StorageComponent component;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,6 @@ public class EditorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editor);
 
         component = App.getComponent();
-        intent = getIntent();
 
         deadline = findViewById(R.id.text_deadline);
         title = findViewById(R.id.text_note_title);
@@ -56,9 +58,17 @@ public class EditorActivity extends AppCompatActivity {
         setSupportActionBar(barEditor);
 
         if (!isNewNote()) {
-            title.setText(intent.getStringExtra("newTitle"));
-            body.setText(intent.getStringExtra("newBody"));
-            deadline.setText(intent.getStringExtra("newDeadline"));
+            Executor.IOThread(new Runnable() {
+                @Override
+                public void run() {
+                    notesDb = component.getStorage().getNoteDao().getAllNote();
+                    noteIndex = intent.getIntExtra("noteIndex", 0);
+                    Note note = notesDb.get(noteIndex);
+                    title.setText(note.getNoteTitle());
+                    body.setText(note.getNoteBody());
+                    deadline.setText(note.getNoteDeadline());
+                }
+            });
         }
 
         fabConfirm.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +88,7 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     private boolean isNewNote() {
+        intent = getIntent();
         return intent == null;
     }
 
@@ -142,6 +153,19 @@ public class EditorActivity extends AppCompatActivity {
                 noteDeadline = deadline.getText().toString();
                 Note note = new Note(noteTitle, noteBody, noteDeadline);
                 component.getStorage().getNoteDao().insertNote(note);
+            }
+        });
+    }
+
+    private void updateNote() {
+        Executor.IOThread(new Runnable() {
+            @Override
+            public void run() {
+                Note note = notesDb.get(noteIndex);
+                note.setNoteTitle(title.getText().toString());
+                note.setNoteBody(body.getText().toString());
+                note.setNoteDeadline(deadline.getText().toString());
+                component.getStorage().getNoteDao().updateNote(note);
             }
         });
     }

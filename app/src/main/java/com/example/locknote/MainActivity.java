@@ -60,13 +60,8 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, EditorActivity.class);
 
-                Note note = notes.get(position);
-                String newTitle = note.getNoteTitle();
-                String newBody = note.getNoteBody();
-                String newDeadline = note.getNoteDeadline();
-                intent.putExtra("newTitle", newTitle);
-                intent.putExtra("newBody", newBody);
-                intent.putExtra("newDeadLine", newDeadline);
+                int noteIndex = position;
+                intent.putExtra("noteIndex", noteIndex);
 
                 startActivity(intent);
                 finish();
