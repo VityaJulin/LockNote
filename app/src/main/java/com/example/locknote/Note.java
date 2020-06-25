@@ -27,7 +27,6 @@ public class Note {
         this.noteDeadline = noteDeadline;
     }
 
-
     public void setNoteTitle(String noteTitle) {
         this.noteTitle = noteTitle;
     }

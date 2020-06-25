@@ -23,9 +23,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import static com.example.locknote.LoginActivity.savedPin;
 
 public class SettingsActivity extends AppCompatActivity {
+    private static final String PREF_PIN = "pref_pin";
     private EditText pin;
     private int progress = 0;
-    private static final String PREF_PIN = "pref_pin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

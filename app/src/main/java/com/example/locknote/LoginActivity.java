@@ -14,11 +14,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
-    private int progress = 0;
-    private String pin;
-    public static SharedPreferences savedPin;
     private static final String PREF_USER_PIN = "pref_user_pin";
     private static final String PREF_PIN = "pref_pin";
+    public static SharedPreferences savedPin;
+    private int progress = 0;
+    private String pin;
     private EditText edTxt;
     private ProgressBar progressBar;
 

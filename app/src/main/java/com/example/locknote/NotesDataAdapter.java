@@ -33,7 +33,6 @@ public class NotesDataAdapter extends BaseAdapter {
     }
 
     void removeNote(final int position) {
-
         Executor.IOThread(new Runnable() {
             @Override
             public void run() {
