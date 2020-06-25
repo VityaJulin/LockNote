@@ -19,4 +19,5 @@
     <string name="toast_add_your_note">Add your note</string>
     <string name="toast_note_update">Note update</string>
     <string name="toast_edit_note_click">Long click on note for edit</string>
+    <string name="toast_note_updated">Note updated</string>
 </resources>

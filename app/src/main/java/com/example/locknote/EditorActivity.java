@@ -77,10 +77,17 @@ public class EditorActivity extends AppCompatActivity {
                 if (body.getText().toString().equals("")) {
                     Toast.makeText(EditorActivity.this, R.string.toast_add_your_note, Toast.LENGTH_SHORT).show();
                 } else {
-                    addNote();
-                    Toast.makeText(EditorActivity.this, R.string.toast_note_saved, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(EditorActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    if (isNewNote()) {
+                        addNote();
+                        Toast.makeText(EditorActivity.this, R.string.toast_note_saved, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(EditorActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    } else {
+                        updateNote();
+                        Toast.makeText(EditorActivity.this, R.string.toast_note_updated, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(EditorActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
                     finish();
                 }
             }
