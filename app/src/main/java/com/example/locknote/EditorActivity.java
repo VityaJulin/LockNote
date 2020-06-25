@@ -89,7 +89,8 @@ public class EditorActivity extends AppCompatActivity {
 
     private boolean isNewNote() {
         intent = getIntent();
-        return intent == null;
+        int index = intent.getIntExtra("noteIndex", -1);
+        return index == -1;
     }
 
     @Override

@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Note> notes;
     private NotesDataAdapter adapter;
     private TextInputEditText search;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         final StorageComponent component = App.getComponent();
 
         generateNotes(component);
+        intent = new Intent(MainActivity.this, EditorActivity.class);
 
         search = findViewById(R.id.edTxt_search);
         FloatingActionButton fabAdd = findViewById(R.id.fabConfirm);
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, EditorActivity.class);
+                intent.removeExtra("noteIndex");
                 startActivity(intent);
                 finish();
             }
@@ -58,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, EditorActivity.class);
 
                 int noteIndex = position;
                 intent.putExtra("noteIndex", noteIndex);
