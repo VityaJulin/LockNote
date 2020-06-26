@@ -1,4 +1,4 @@
-package com.example.locknote;
+package com.example.locknote.database;
 
 import android.content.Context;
 
@@ -17,7 +17,7 @@ public class StorageModule {
     }
 
     @Provides
-    NotesDataBase getStorage() {
+    public NotesDataBase getStorage() {
         return Room.databaseBuilder(mContext, NotesDataBase.class, DATA_BASE_NAME).build();
     }
 }

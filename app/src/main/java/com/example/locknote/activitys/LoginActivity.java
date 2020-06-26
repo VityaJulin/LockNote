@@ -1,4 +1,4 @@
-package com.example.locknote;
+package com.example.locknote.activitys;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.locknote.R;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String PREF_USER_PIN = "pref_user_pin";

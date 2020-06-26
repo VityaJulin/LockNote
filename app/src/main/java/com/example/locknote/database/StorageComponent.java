@@ -1,4 +1,4 @@
-package com.example.locknote;
+package com.example.locknote.database;
 
 import javax.inject.Singleton;
 

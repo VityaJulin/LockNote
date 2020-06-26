@@ -2,6 +2,10 @@ package com.example.locknote;
 
 import android.app.Application;
 
+import com.example.locknote.database.DaggerStorageComponent;
+import com.example.locknote.database.StorageComponent;
+import com.example.locknote.database.StorageModule;
+
 public class App extends Application {
 
     private static StorageComponent component;

@@ -1,4 +1,4 @@
-package com.example.locknote;
+package com.example.locknote.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.example.locknote.App;
+import com.example.locknote.Executor;
+import com.example.locknote.Note;
+import com.example.locknote.R;
+import com.example.locknote.database.StorageComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +23,7 @@ public class NotesDataAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     StorageComponent component;
 
-    NotesDataAdapter(Context context, List<Note> notes) {
+    public NotesDataAdapter(Context context, List<Note> notes) {
         if (notes == null) {
             this.notes = new ArrayList<>();
         } else {
@@ -27,7 +33,7 @@ public class NotesDataAdapter extends BaseAdapter {
         component = App.getComponent();
     }
 
-    void addNote(Note note) {
+    public void addNote(Note note) {
         this.notes.add(note);
         notifyDataSetChanged();
     }

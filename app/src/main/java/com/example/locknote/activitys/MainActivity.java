@@ -1,4 +1,4 @@
-package com.example.locknote;
+package com.example.locknote.activitys;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.locknote.App;
+import com.example.locknote.Executor;
+import com.example.locknote.Note;
+import com.example.locknote.adapter.NotesDataAdapter;
+import com.example.locknote.R;
+import com.example.locknote.database.StorageComponent;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;

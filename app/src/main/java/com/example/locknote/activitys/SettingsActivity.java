@@ -1,4 +1,4 @@
-package com.example.locknote;
+package com.example.locknote.activitys;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,10 +17,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.locknote.R;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import static com.example.locknote.LoginActivity.savedPin;
+import static com.example.locknote.activitys.LoginActivity.savedPin;
 
 public class SettingsActivity extends AppCompatActivity {
     private static final String PREF_PIN = "pref_pin";
