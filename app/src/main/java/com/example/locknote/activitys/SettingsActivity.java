@@ -98,11 +98,11 @@ public class SettingsActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.menu_show_pin:
-                pin.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                pin.setTransformationMethod(new PasswordTransformationMethod());
                 pin.setSelection(pin.getText().length());
                 return true;
             case R.id.menu_hide_pin:
-                pin.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                pin.setTransformationMethod(null);
                 pin.setSelection(pin.getText().length());
                 return true;
             default:
