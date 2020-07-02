@@ -38,6 +38,13 @@ public class NotesDataAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void addAllNotes(List<Note> noteList) {
+        for (Note note : noteList) {
+            this.notes.add(note);
+        }
+        notifyDataSetChanged();
+    }
+
     void removeNote(final int position) {
         Executor.IOThread(new Runnable() {
             @Override

@@ -20,7 +20,7 @@ import com.example.locknote.App;
 import com.example.locknote.Executor;
 import com.example.locknote.Note;
 import com.example.locknote.R;
-import com.example.locknote.database.StorageComponent;
+import com.example.locknote.database.NoteDao;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -39,15 +39,15 @@ public class EditorActivity extends AppCompatActivity {
     private String noteDeadline;
     private Intent intent;
     private int noteIndex;
+    private NoteDao noteDao;
     private List<Note> notesDb;
-    StorageComponent component;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
-        component = App.getComponent();
+        noteDao = App.getComponent().getStorage().getNoteDao();
 
         deadline = findViewById(R.id.text_deadline);
         title = findViewById(R.id.text_note_title);
@@ -66,7 +66,7 @@ public class EditorActivity extends AppCompatActivity {
             Executor.IOThread(new Runnable() {
                 @Override
                 public void run() {
-                    notesDb = component.getStorage().getNoteDao().getAllNote();
+                    notesDb = noteDao.getAllNote();
                     noteIndex = intent.getIntExtra("noteIndex", 0);
                     Note note = notesDb.get(noteIndex);
                     title.setText(note.getNoteTitle());
@@ -85,14 +85,12 @@ public class EditorActivity extends AppCompatActivity {
                     if (isNewNote()) {
                         addNote();
                         Toast.makeText(EditorActivity.this, R.string.toast_note_saved, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(EditorActivity.this, MainActivity.class);
-                        startActivity(intent);
                     } else {
                         updateNote();
                         Toast.makeText(EditorActivity.this, R.string.toast_note_updated, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(EditorActivity.this, MainActivity.class);
-                        startActivity(intent);
                     }
+                    Intent intent = new Intent(EditorActivity.this, MainActivity.class);
+                    startActivity(intent);
                     finish();
                 }
             }
@@ -118,6 +116,7 @@ public class EditorActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_delete_alert:
                 deadline.setText("");
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -165,7 +164,7 @@ public class EditorActivity extends AppCompatActivity {
                 noteBody = body.getText().toString();
                 noteDeadline = deadline.getText().toString();
                 Note note = new Note(noteTitle, noteBody, noteDeadline);
-                component.getStorage().getNoteDao().insertNote(note);
+                noteDao.insertNote(note);
             }
         });
     }
@@ -178,7 +177,7 @@ public class EditorActivity extends AppCompatActivity {
                 note.setNoteTitle(title.getText().toString());
                 note.setNoteBody(body.getText().toString());
                 note.setNoteDeadline(deadline.getText().toString());
-                component.getStorage().getNoteDao().updateNote(note);
+                noteDao.updateNote(note);
             }
         });
     }
