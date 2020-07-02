@@ -40,7 +40,6 @@ public class EditorActivity extends AppCompatActivity {
     private Intent intent;
     private int noteIndex;
     private NoteDao noteDao;
-    private List<Note> notesDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +65,8 @@ public class EditorActivity extends AppCompatActivity {
             Executor.IOThread(new Runnable() {
                 @Override
                 public void run() {
-                    notesDb = noteDao.getAllNote();
                     noteIndex = intent.getIntExtra("noteIndex", 0);
-                    Note note = notesDb.get(noteIndex);
+                    Note note = noteDao.getById(noteIndex);
                     title.setText(note.getNoteTitle());
                     body.setText(note.getNoteBody());
                     deadline.setText(note.getNoteDeadline());
@@ -173,7 +171,7 @@ public class EditorActivity extends AppCompatActivity {
         Executor.IOThread(new Runnable() {
             @Override
             public void run() {
-                Note note = notesDb.get(noteIndex);
+                Note note = noteDao.getById(noteIndex);
                 note.setNoteTitle(title.getText().toString());
                 note.setNoteBody(body.getText().toString());
                 note.setNoteDeadline(deadline.getText().toString());

@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intentEditor = new Intent(MainActivity.this, EditorActivity.class);
-                int noteIndex = position;
+                int noteIndex = adapter.getItem(position).getNoteId();;
                 intentEditor.putExtra("noteIndex", noteIndex);
                 startActivity(intentEditor);
                 return true;
