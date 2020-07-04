@@ -12,6 +12,7 @@ import com.example.locknote.App;
 import com.example.locknote.Executor;
 import com.example.locknote.Note;
 import com.example.locknote.R;
+import com.example.locknote.database.NoteDao;
 import com.example.locknote.database.StorageComponent;
 
 import java.util.ArrayList;

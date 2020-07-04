@@ -17,10 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.locknote.App;
 import com.example.locknote.Executor;
 import com.example.locknote.Note;
-import com.example.locknote.adapter.NotesDataAdapter;
 import com.example.locknote.R;
+import com.example.locknote.adapter.NotesDataAdapter;
 import com.example.locknote.database.NoteDao;
-import com.example.locknote.database.StorageComponent;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         noteDao = App.getComponent().getStorage().getNoteDao();
-        getAllNotes(noteDao);
+        getAllNotes();
 
         search = findViewById(R.id.edTxt_search);
         FloatingActionButton fabAdd = findViewById(R.id.fabConfirm);
@@ -49,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new NotesDataAdapter(this, null);
         listView.setAdapter(adapter);
-
 
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intentEditor = new Intent(MainActivity.this, EditorActivity.class);
-                int noteIndex = adapter.getItem(position).getNoteId();;
+                int noteIndex = adapter.getItem(position).getNoteId();
                 intentEditor.putExtra("noteIndex", noteIndex);
                 startActivity(intentEditor);
                 return true;
@@ -79,13 +77,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void getAllNotes(final NoteDao noteDao) {
+    private void getAllNotes() {
         Executor.IOThread(new Runnable() {
             @Override
             public void run() {
-                List<Note> notes;
-                notes = noteDao.getAllNote();
-                adapter.addAllNotes(notes);
+                final List<Note> notes = noteDao.getAllNote();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.addAllNotes(notes);
+                    }
+                });
             }
         });
     }

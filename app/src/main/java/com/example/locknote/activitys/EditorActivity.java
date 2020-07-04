@@ -26,7 +26,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
-import java.util.List;
 
 public class EditorActivity extends AppCompatActivity {
     private final Calendar todayCalendar = Calendar.getInstance();
@@ -66,10 +65,15 @@ public class EditorActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     noteIndex = intent.getIntExtra("noteIndex", 0);
-                    Note note = noteDao.getById(noteIndex);
-                    title.setText(note.getNoteTitle());
-                    body.setText(note.getNoteBody());
-                    deadline.setText(note.getNoteDeadline());
+                    final Note note = noteDao.getById(noteIndex);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            title.setText(note.getNoteTitle());
+                            body.setText(note.getNoteBody());
+                            deadline.setText(note.getNoteDeadline());
+                        }
+                    });
                 }
             });
         }
